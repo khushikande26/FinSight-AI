@@ -11,7 +11,7 @@ __pycache__/
 # Jupyter checkpoints
 .ipynb_checkpoints/
 
-# IDE files
+# IDE files 
 .vscode/
 
 # OS files
@@ -24,3 +24,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Downloaded stock data
+data/raw/*.csv
