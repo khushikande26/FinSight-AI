@@ -19,8 +19,16 @@ def download_stock_data(symbol: str) -> pd.DataFrame:
         symbol,
         start=START_DATE,
         end=END_DATE,
-        progress=False
+        progress=False,
+        auto_adjust=False
     )
+
+    # Flatten MultiIndex columns if they exist
+    if isinstance(data.columns, pd.MultiIndex):
+        data.columns = data.columns.get_level_values(0)
+
+    # Convert Date index into a normal column
+    data.reset_index(inplace=True)
 
     return data
 
@@ -33,7 +41,7 @@ def save_stock_data(symbol: str, data: pd.DataFrame):
 
     filename = f"data/raw/{symbol}.csv"
 
-    data.to_csv(filename)
+    data.to_csv(filename, index=False)
 
     logger.info(f"Saved -> {filename}")
 
